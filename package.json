@@ -2,7 +2,7 @@
   "name": "components-as-props",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 11343",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
