@@ -13,6 +13,7 @@ export function Generic<T>(props: GenericProps<T>): ReactElement {
 // controlled props, i.e. color
 export interface SpecificSubProps {
   color: "blue" | "green" | "pink";
+  onClick?: () => void;
 }
 
 export interface SpecificProps<T> {

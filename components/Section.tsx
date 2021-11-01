@@ -1,15 +1,14 @@
-import { Fragment, ReactNode } from "react";
+import { Fragment, FC } from "react";
+import { Generic, Specific } from "./Generics";
 
 interface SectionProps {
-  itemLeft?: ReactNode;
-  itemRight?: ReactNode;
+  itemLeft?: FC;
+  itemRight?: FC;
   text: string;
   color: "blue" | "green" | "pink";
 }
 
-// the goal is to be able to pass props to the component from the direct parent and the parent that establishes the component.
-
-export default function Section({
+export function SectionGeneric({
   text,
   itemLeft,
   itemRight,
@@ -18,16 +17,59 @@ export default function Section({
   return (
     <div>
       {itemLeft ? (
-        <Component component={itemLeft} subProps={{ color }} />
+        <Generic
+          component={itemLeft}
+          subProps={{ color, size: "sm", text: "Hello there" }}
+        />
       ) : (
         <Fragment />
       )}
       <h2>{text}</h2>
       {itemRight ? (
-        <Component component={itemRight} subProps={{ color }} />
+        <Generic component={itemRight} subProps={{ color, size: "sm" }} />
       ) : (
         <Fragment />
       )}
+    </div>
+  );
+}
+
+export function SectionSpecific({
+  text,
+  itemLeft,
+  itemRight,
+  color,
+}: SectionProps): JSX.Element {
+  return (
+    <div>
+      {itemLeft ? (
+        <Generic component={itemLeft} subProps={{ color }} />
+      ) : (
+        <Fragment />
+      )}
+      <h2>{text}</h2>
+      {itemRight ? (
+        <Generic component={itemRight} subProps={{ color }} />
+      ) : (
+        <Fragment />
+      )}
+    </div>
+  );
+}
+
+export function SectionNoProps({
+  text,
+  itemLeft,
+  itemRight,
+  color,
+}: SectionProps): JSX.Element {
+  const ItemLeft = itemLeft;
+  const ItemRight = itemRight;
+  return (
+    <div>
+      {itemLeft ? itemLeft : <Fragment />}
+      <h2>{text}</h2>
+      {itemRight ? itemRight : <Fragment />}
     </div>
   );
 }
